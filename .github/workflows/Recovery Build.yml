@@ -41,11 +41,15 @@ on:
         description: 'BUILD_TARGET'
         required: true
         default: 'recovery'
+      BUILD_DEBUG:
+        description: 'BUILD_DEBUG'
+        required: true
+        default: 'false'
 
 jobs:
   build:
     if: github.event.repository.owner.id == github.event.sender.id
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
@@ -106,7 +110,7 @@ jobs:
         git config --global user.email "b170420nc@gmail.com"
         repo init --depth=1 -u ${{ github.event.inputs.MANIFEST_URL }} -b ${{ github.event.inputs.MANIFEST_BRANCH }}
       id: pwd
-          
+      
     - name: Repo Sync
       run: |
         repo sync -j$(nproc --all) --force-sync
@@ -143,13 +147,28 @@ jobs:
     - name: Set Swap Space
       uses: pierotofy/set-swap-space@master
       with:
-        swap-size-gb: 12
+        swap-size-gb: 16
 
-    - name: Building recovery
+    - name: Building recovery (debug)
+      if: |
+        github.event.inputs.BUILD_DEBUG == 'true'
       run: |
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
-        lunch ${{ github.event.inputs.MAKEFILE_NAME }}-eng && make clean && mka ${{ github.event.inputs.BUILD_TARGET }}image
+        lunch ${{ github.event.inputs.MAKEFILE_NAME }}-eng
+        make clean
+        make -j1 ${{ github.event.inputs.BUILD_TARGET }}image
+        
+    - name: Building recovery
+      if: |
+        github.event.inputs.BUILD_DEBUG != 'true'
+      run: |
+        source build/envsetup.sh
+        export ALLOW_MISSING_DEPENDENCIES=true
+        lunch ${{ github.event.inputs.MAKEFILE_NAME }}-eng
+        mka clean
+        mka ${{ github.event.inputs.BUILD_TARGET }}image
+
       working-directory: ${{ steps.pwd.outputs.workspace-folder }}
 
     - name: Upload to Release
