@@ -49,7 +49,7 @@ on:
 jobs:
   build:
     if: github.event.repository.owner.id == github.event.sender.id
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
@@ -148,21 +148,21 @@ jobs:
       with:
         swap-size-gb: 12
 
-    - name: Building recovery in debug
-      run: |
-        source build/envsetup.sh
-        export ALLOW_MISSING_DEPENDENCIES=true
-        lunch ${{ github.event.inputs.MAKEFILE_NAME }}-eng
-        make clean && make -j1 ${{ github.event.inputs.BUILD_TARGET }}image
-      working-directory: ${{ steps.pwd.outputs.workspace-folder }}
-
-    # - name: Building recovery
+    # - name: Building recovery in debug
     #   run: |
     #     source build/envsetup.sh
     #     export ALLOW_MISSING_DEPENDENCIES=true
     #     lunch ${{ github.event.inputs.MAKEFILE_NAME }}-eng
-    #     mka clean && mka ${{ github.event.inputs.BUILD_TARGET }}image
+    #     make clean && make -j1 ${{ github.event.inputs.BUILD_TARGET }}image
     #   working-directory: ${{ steps.pwd.outputs.workspace-folder }}
+
+    - name: Building recovery
+      run: |
+        source build/envsetup.sh
+        export ALLOW_MISSING_DEPENDENCIES=true
+        lunch ${{ github.event.inputs.MAKEFILE_NAME }}-eng
+        mka clean && mka ${{ github.event.inputs.BUILD_TARGET }}image
+      working-directory: ${{ steps.pwd.outputs.workspace-folder }}
 
     - name: Upload to Release
       uses: softprops/action-gh-release@v1
