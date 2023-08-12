@@ -158,7 +158,8 @@ jobs:
         lunch ${{ github.event.inputs.MAKEFILE_NAME }}-eng
         make clean
         make -j1 ${{ github.event.inputs.BUILD_TARGET }}image
-        
+      working-directory: ${{ steps.pwd.outputs.workspace-folder }}
+      
     - name: Building recovery
       if: |
         github.event.inputs.BUILD_DEBUG != 'true'
@@ -168,7 +169,6 @@ jobs:
         lunch ${{ github.event.inputs.MAKEFILE_NAME }}-eng
         mka clean
         mka ${{ github.event.inputs.BUILD_TARGET }}image
-
       working-directory: ${{ steps.pwd.outputs.workspace-folder }}
 
     - name: Upload to Release
