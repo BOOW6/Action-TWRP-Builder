@@ -41,10 +41,10 @@ on:
         description: 'BUILD_TARGET'
         required: true
         default: 'recovery'
-      BUILD_DEBUG:
-        description: 'BUILD_DEBUG'
-        required: true
-        default: 'false'
+      # BUILD_DEBUG:
+      #   description: 'BUILD_DEBUG'
+      #   required: true
+      #   default: 'false'
 
 jobs:
   build:
@@ -149,7 +149,6 @@ jobs:
         swap-size-gb: 12
 
     - name: Building recovery in debug
-      if: ${{ github.event.inputs.BUILD_DEBUG }} == 'true'
       run: |
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
@@ -157,14 +156,13 @@ jobs:
         make clean && make -j1 ${{ github.event.inputs.BUILD_TARGET }}image
       working-directory: ${{ steps.pwd.outputs.workspace-folder }}
 
-    - name: Building recovery
-      if: ${{ github.event.inputs.BUILD_DEBUG }} != 'true'
-      run: |
-        source build/envsetup.sh
-        export ALLOW_MISSING_DEPENDENCIES=true
-        lunch ${{ github.event.inputs.MAKEFILE_NAME }}-eng
-        mka clean && mka ${{ github.event.inputs.BUILD_TARGET }}image
-      working-directory: ${{ steps.pwd.outputs.workspace-folder }}
+    # - name: Building recovery
+    #   run: |
+    #     source build/envsetup.sh
+    #     export ALLOW_MISSING_DEPENDENCIES=true
+    #     lunch ${{ github.event.inputs.MAKEFILE_NAME }}-eng
+    #     mka clean && mka ${{ github.event.inputs.BUILD_TARGET }}image
+    #   working-directory: ${{ steps.pwd.outputs.workspace-folder }}
 
     - name: Upload to Release
       uses: softprops/action-gh-release@v1
