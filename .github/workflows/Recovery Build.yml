@@ -91,8 +91,7 @@ jobs:
       if: ${{ startsWith(github.event.inputs.MANIFEST_URL, 'git@github.com') }}
       uses: webfactory/ssh-agent@v0.5.4
       with:
-          ssh-private-key: |
-              ${{ secrets.SSH_PRIVATE_KEY }}
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
     - name: Install repo
       run: |
@@ -150,25 +149,21 @@ jobs:
         swap-size-gb: 12
 
     - name: Building recovery in debug
-      if: |
-        github.event.inputs.BUILD_DEBUG == 'true'
+      if: ${{ github.event.inputs.BUILD_DEBUG }} == 'true'
       run: |
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
         lunch ${{ github.event.inputs.MAKEFILE_NAME }}-eng
-        make clean
-        make -j1 ${{ github.event.inputs.BUILD_TARGET }}image
+        make clean && make -j1 ${{ github.event.inputs.BUILD_TARGET }}image
       working-directory: ${{ steps.pwd.outputs.workspace-folder }}
-      
+
     - name: Building recovery
-      if: |
-        github.event.inputs.BUILD_DEBUG != 'true'
+      if: ${{ github.event.inputs.BUILD_DEBUG }} != 'true'
       run: |
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
         lunch ${{ github.event.inputs.MAKEFILE_NAME }}-eng
-        mka clean
-        mka ${{ github.event.inputs.BUILD_TARGET }}image
+        mka clean && mka ${{ github.event.inputs.BUILD_TARGET }}image
       working-directory: ${{ steps.pwd.outputs.workspace-folder }}
 
     - name: Upload to Release
