@@ -155,6 +155,8 @@ jobs:
 
     # - name: Building recovery in debug
     #   run: |
+    #     pwd
+    #     ls -la
     #     mkdir -p out/target/product
     #     cp ${{ github.event.inputs.DEVICE_PATH }}/prebuilt/dtb out/target/product/${{ github.event.inputs.DEVICE_NAME }}/dtb.img
     #     source build/envsetup.sh
@@ -165,6 +167,8 @@ jobs:
 
     - name: Building recovery
       run: |
+        pwd
+        ls -la
         mkdir -p out/target/product
         cp ${{ github.event.inputs.DEVICE_PATH }}/prebuilt/dtb out/target/product/${{ github.event.inputs.DEVICE_NAME }}/dtb.img
         source build/envsetup.sh
