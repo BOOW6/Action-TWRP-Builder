@@ -155,7 +155,7 @@ jobs:
 
     # - name: Building recovery in debug
     #   run: |
-    #     cp ${{ github.event.inputs.DEVICE_PATH }}/prebuilt/dtb out/target/product/${{ github.event.inputs.DEVICE_NAME }}/dtb.img
+    #     cp --path ${{ github.event.inputs.DEVICE_PATH }}/prebuilt/dtb out/target/product/${{ github.event.inputs.DEVICE_NAME }}/dtb.img
     #     source build/envsetup.sh
     #     export ALLOW_MISSING_DEPENDENCIES=true
     #     lunch ${{ github.event.inputs.MAKEFILE_NAME }}-eng
@@ -164,7 +164,7 @@ jobs:
 
     - name: Building recovery
       run: |
-        cp ${{ github.event.inputs.DEVICE_PATH }}/prebuilt/dtb out/target/product/${{ github.event.inputs.DEVICE_NAME }}/dtb.img
+        cp --path ${{ github.event.inputs.DEVICE_PATH }}/prebuilt/dtb out/target/product/${{ github.event.inputs.DEVICE_NAME }}/dtb.img
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
         lunch ${{ github.event.inputs.MAKEFILE_NAME }}-eng
