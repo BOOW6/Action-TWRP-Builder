@@ -84,7 +84,7 @@ jobs:
         libxml2 lzop pngcrush schedtool squashfs-tools imagemagick libbz2-dev lzma ncftp qemu-user-static \
         libstdc++-10-dev libncurses5 git-core gnupg flex bison zip unzip curl zlib1g-dev openjdk-8-jdk \
         build-essential gcc g++ make python2 python3 python3-full gcc-10-locales lib32stdc++6-10-dbg \
-        libx32stdc++6-10-dbg libgirepository1.0-dev openjdk-8-source visualvm python-tk
+        libx32stdc++6-10-dbg libgirepository1.0-dev openjdk-8-source visualvm python-tk mkbootimg
 
     - name: Install OpenJDK
       uses: actions/setup-java@v3
