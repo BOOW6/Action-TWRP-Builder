@@ -84,7 +84,8 @@ jobs:
         libxml2 lzop pngcrush schedtool squashfs-tools imagemagick libbz2-dev lzma ncftp qemu-user-static \
         libstdc++-10-dev libncurses5 git-core gnupg flex bison zip unzip curl zlib1g-dev openjdk-8-jdk \
         build-essential gcc g++ make python2 python3 python3-full gcc-10-locales lib32stdc++6-10-dbg \
-        libx32stdc++6-10-dbg libgirepository1.0-dev openjdk-8-source visualvm python-tk mkbootimg
+        libx32stdc++6-10-dbg libgirepository1.0-dev openjdk-8-source visualvm python-tk mkbootimg \
+        python3-kerberos python-is-python3
 
     - name: Install OpenJDK
       uses: actions/setup-java@v3
@@ -100,20 +101,20 @@ jobs:
 
     - name: Install repo
       run: |
-        sudo apt -y install repo
-# mkdir -p ~/.bin
-# PATH="${HOME}/.bin:${PATH}"
-# curl https://storage.googleapis.com/git-repo-downloads/repo > ~/.bin/repo
-# chmod a+rx ~/.bin/repo
-# sudo ln -sf ~/.bin/repo /usr/bin/repo
+        mkdir -p ~/.bin
+        PATH="${HOME}/.bin:${PATH}"
+        curl https://storage.googleapis.com/git-repo-downloads/repo > ~/.bin/repo
+        chmod a+rx ~/.bin/repo
+        sudo ln -sf ~/.bin/repo /usr/bin/repo
+# sudo apt -y install repo
 
     - name: Initialize repo
       run: |
         mkdir workspace
         cd workspace
         echo "workspace-folder=$(pwd)" >> $GITHUB_OUTPUT
-        git config --global user.name "Nico170420"
-        git config --global user.email "b170420nc@gmail.com"
+        git config --global user.name "BOOW6"
+        git config --global user.email "468385005@qq.com"
         repo init --depth=1 -u ${{ github.event.inputs.MANIFEST_URL }} -b ${{ github.event.inputs.MANIFEST_BRANCH }}
       id: pwd
       
@@ -153,7 +154,7 @@ jobs:
     - name: Set Swap Space
       uses: pierotofy/set-swap-space@master
       with:
-        swap-size-gb: 12
+        swap-size-gb: 24
 
     # - name: Building recovery in debug
     #   run: |
