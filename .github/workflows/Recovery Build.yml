@@ -116,6 +116,7 @@ jobs:
         git config --global user.name "BOOW6"
         git config --global user.email "468385005@qq.com"
         repo init --depth=1 -u ${{ github.event.inputs.MANIFEST_URL }} -b ${{ github.event.inputs.MANIFEST_BRANCH }}
+        cp .repo/repo/repo ~/.bin/repo
       id: pwd
       
     - name: Repo Sync
