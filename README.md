@@ -27,6 +27,6 @@ Can be downloaded at [Release](../../releases)
 -----
 ## Remark
 
-#### TeamWin Recovery Project: https://github.com/minimal-manifest-twrp
-#### SKYHAWK Recovery Project: https://github.com/SHRP/manifest
-#### OrangeFox Recovery Project: https://gitlab.com/OrangeFox/Manifest
+- TeamWin Recovery Project: https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp
+- SKYHAWK Recovery Project: https://github.com/SHRP/manifest
+- OrangeFox Recovery Project: https://gitlab.com/OrangeFox/Manifest
