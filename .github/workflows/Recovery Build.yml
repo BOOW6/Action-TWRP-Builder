@@ -113,8 +113,8 @@ jobs:
         mkdir workspace
         cd workspace
         echo "workspace-folder=$(pwd)" >> $GITHUB_OUTPUT
-        git config --global user.name "BOOW6"
-        git config --global user.email "468385005@qq.com"
+        git config --global user.name "god"
+        git config --global user.email "holy@shit.com"
         repo init --depth=1 -u ${{ github.event.inputs.MANIFEST_URL }} -b ${{ github.event.inputs.MANIFEST_BRANCH }}
         cp .repo/repo/repo ~/.bin/repo
       id: pwd
